@@ -1,0 +1,29 @@
+{% extends 'all-news/base.html' %} {% block content %} {{block.super}}
+<div class="container mt-3">
+  <div class="row">
+    <!-- Looping through the news -->
+    {% for news_item in news %}
+    <!-- displaying News articles -->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <a href="article/{{news_item.id}}"><h2 class="text-center">{{news_item.title}}</h2></a>
+      <p class="text-center">{{news_item.body}}</p>
+      <p class="text-center">{{news_item.editor}} || Tags:
+        {% for tag in news_item.tags.all%}
+        <!-- Note that the tag loop is a nested loop -->
+          <span class="badge badge-pill badge-primary">{{tag}}</span>
+        {% endfor %}
+      </p>
+    </div>
+
+    <!-- Display news Article images -->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <img src="{{news_item.article_image.url}}" class="img-fluid" alt="Image">
+    </div>
+    {% empty %}
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <h2 class="text-center">There are No News Items</h2>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
